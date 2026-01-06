@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风险承受能力测试</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .question-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .option input[type="radio"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            color: #333;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .result {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .result.show {
+            display: block;
+        }
+        
+        .result-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .result-type {
+            font-size: 20px;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .result-content {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .result-suggestions {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .result-suggestions h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .result-suggestions ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .result-suggestions li {
+            padding: 8px 0;
+            color: #666;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .result-suggestions li:last-child {
+            border-bottom: none;
+        }
+        
+        .result-suggestions li:before {
+            content: "✓ ";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .progress {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>风险承受能力测试</h1>
+        <p class="subtitle">通过以下问题，了解你的风险承受能力，找到适合的投资方式</p>
+        
+        <div class="progress" id="progress">问题 1 / 10</div>
+        
+        <form id="assessmentForm">
+            <!-- 问题1 -->
+            <div class="question" data-question="1">
+                <div class="question-title">1. 你的年龄是？</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q1" value="1" id="q1a1" required>
+                        <label for="q1a1">25岁以下</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" value="2" id="q1a2">
+                        <label for="q1a2">25-35岁</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" value="3" id="q1a3">
+                        <label for="q1a3">35-45岁</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" value="4" id="q1a4">
+                        <label for="q1a4">45-55岁</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" value="5" id="q1a5">
+                        <label for="q1a5">55岁以上</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题2 -->
+            <div class="question" data-question="2" style="display:none;">
+                <div class="question-title">2. 你的投资经验是？</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q2" value="1" id="q2a1" required>
+                        <label for="q2a1">没有投资经验</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" value="2" id="q2a2">
+                        <label for="q2a2">1年以下</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" value="3" id="q2a3">
+                        <label for="q2a3">1-3年</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" value="4" id="q2a4">
+                        <label for="q2a4">3-5年</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" value="5" id="q2a5">
+                        <label for="q2a5">5年以上</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题3 -->
+            <div class="question" data-question="3" style="display:none;">
+                <div class="question-title">3. 如果投资亏损20%，你的反应是？</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q3" value="1" id="q3a1" required>
+                        <label for="q3a1">无法接受，立即卖出</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" value="2" id="q3a2">
+                        <label for="q3a2">很担心，考虑卖出</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" value="3" id="q3a3">
+                        <label for="q3a3">有些担心，但会继续持有</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" value="4" id="q3a4">
+                        <label for="q3a4">不太担心，继续持有</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" value="5" id="q3a5">
+                        <label for="q3a5">完全不在意，可能还会加仓</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题4 -->
+            <div class="question" data-question="4" style="display:none;">
+                <div class="question-title">4. 你的投资目标是？</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q4" value="1" id="q4a1" required>
+                        <label for="q4a1">保本为主，收益略高于存款即可</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" value="2" id="q4a2">
+                        <label for="q4a2">稳健增长，跑赢通胀</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" value="3" id="q4a3">
+                        <label for="q4a3">平衡风险和收益</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" value="4" id="q4a4">
+                        <label for="q4a4">追求较高收益，能接受一定风险</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" value="5" id="q4a5">
+                        <label for="q4a5">追求高收益，能接受高风险</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题5 -->
+            <div class="question" data-question="5" style="display:none;">
+                <div class="question-title">5. 你的投资期限是？</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q5" value="1" id="q5a1" required>
+                        <label for="q5a1">1年以内</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" value="2" id="q5a2">
+                        <label for="q5a2">1-3年</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" value="3" id="q5a3">
+                        <label for="q5a3">3-5年</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" value="4" id="q5a4">
+                        <label for="q5a4">5-10年</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" value="5" id="q5a5">
+                        <label for="q5a5">10年以上</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题6-10 -->
+            <div class="question" data-question="6" style="display:none;">
+                <div class="question-title">6. 你的应急资金是否充足？（3-6个月生活费）</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q6" value="1" id="q6a1" required><label for="q6a1">不足1个月</label></div>
+                    <div class="option"><input type="radio" name="q6" value="2" id="q6a2"><label for="q6a2">1-3个月</label></div>
+                    <div class="option"><input type="radio" name="q6" value="3" id="q6a3"><label for="q6a3">3-6个月</label></div>
+                    <div class="option"><input type="radio" name="q6" value="4" id="q6a4"><label for="q6a4">6-12个月</label></div>
+                    <div class="option"><input type="radio" name="q6" value="5" id="q6a5"><label for="q6a5">12个月以上</label></div>
+                </div>
+            </div>
+            
+            <div class="question" data-question="7" style="display:none;">
+                <div class="question-title">7. 你的投资资金占资产的比例是？</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q7" value="1" id="q7a1" required><label for="q7a1">10%以下</label></div>
+                    <div class="option"><input type="radio" name="q7" value="2" id="q7a2"><label for="q7a2">10%-30%</label></div>
+                    <div class="option"><input type="radio" name="q7" value="3" id="q7a3"><label for="q7a3">30%-50%</label></div>
+                    <div class="option"><input type="radio" name="q7" value="4" id="q7a4"><label for="q7a4">50%-70%</label></div>
+                    <div class="option"><input type="radio" name="q7" value="5" id="q7a5"><label for="q7a5">70%以上</label></div>
+                </div>
+            </div>
+            
+            <div class="question" data-question="8" style="display:none;">
+                <div class="question-title">8. 你能接受多长时间的亏损？</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q8" value="1" id="q8a1" required><label for="q8a1">无法接受亏损</label></div>
+                    <div class="option"><input type="radio" name="q8" value="2" id="q8a2"><label for="q8a2">1个月以内</label></div>
+                    <div class="option"><input type="radio" name="q8" value="3" id="q8a3"><label for="q8a3">3-6个月</label></div>
+                    <div class="option"><input type="radio" name="q8" value="4" id="q8a4"><label for="q8a4">6-12个月</label></div>
+                    <div class="option"><input type="radio" name="q8" value="5" id="q8a5"><label for="q8a5">1年以上</label></div>
+                </div>
+            </div>
+            
+            <div class="question" data-question="9" style="display:none;">
+                <div class="question-title">9. 你对投资知识的了解程度是？</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q9" value="1" id="q9a1" required><label for="q9a1">完全不了解</label></div>
+                    <div class="option"><input type="radio" name="q9" value="2" id="q9a2"><label for="q9a2">了解基本概念</label></div>
+                    <div class="option"><input type="radio" name="q9" value="3" id="q9a3"><label for="q9a3">有一定了解</label></div>
+                    <div class="option"><input type="radio" name="q9" value="4" id="q9a4"><label for="q9a4">比较了解</label></div>
+                    <div class="option"><input type="radio" name="q9" value="5" id="q9a5"><label for="q9a5">非常了解</label></div>
+                </div>
+            </div>
+            
+            <div class="question" data-question="10" style="display:none;">
+                <div class="question-title">10. 你的收入稳定性如何？</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q10" value="1" id="q10a1" required><label for="q10a1">很不稳定</label></div>
+                    <div class="option"><input type="radio" name="q10" value="2" id="q10a2"><label for="q10a2">不太稳定</label></div>
+                    <div class="option"><input type="radio" name="q10" value="3" id="q10a3"><label for="q10a3">一般</label></div>
+                    <div class="option"><input type="radio" name="q10" value="4" id="q10a4"><label for="q10a4">比较稳定</label></div>
+                    <div class="option"><input type="radio" name="q10" value="5" id="q10a5"><label for="q10a5">非常稳定</label></div>
+                </div>
+            </div>
+            
+            <button type="button" class="btn" id="nextBtn" onclick="nextQuestion()">下一题</button>
+            <button type="submit" class="btn" id="submitBtn" style="display:none;">查看结果</button>
+        </form>
+        
+        <div class="result" id="result">
+            <div class="result-title">你的风险承受能力评估结果</div>
+            <div class="result-type" id="resultType"></div>
+            <div class="result-content" id="resultContent"></div>
+            <div class="result-suggestions" id="resultSuggestions"></div>
+        </div>
+    </div>
+    
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 10;
+        
+        function nextQuestion() {
+            const currentQ = document.querySelector(`[data-question="${currentQuestion}"]`);
+            const selected = currentQ.querySelector('input[type="radio"]:checked');
+            
+            if (!selected) {
+                alert('请选择一个选项');
+                return;
+            }
+            
+            currentQ.style.display = 'none';
+            currentQuestion++;
+            
+            if (currentQuestion <= totalQuestions) {
+                document.querySelector(`[data-question="${currentQuestion}"]`).style.display = 'block';
+                document.getElementById('progress').textContent = `问题 ${currentQuestion} / ${totalQuestions}`;
+                
+                if (currentQuestion === totalQuestions) {
+                    document.getElementById('nextBtn').style.display = 'none';
+                    document.getElementById('submitBtn').style.display = 'block';
+                }
+            }
+        }
+        
+        document.getElementById('assessmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let totalScore = 0;
+            for (let i = 1; i <= totalQuestions; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) {
+                    totalScore += parseInt(selected.value);
+                }
+            }
+            
+            const avgScore = totalScore / totalQuestions;
+            let riskType, content, suggestions;
+            
+            if (avgScore <= 1.5) {
+                riskType = '保守型';
+                content = '你的风险承受能力较低，无法接受投资亏损。建议选择低风险、低收益的投资产品，以保本为主。';
+                suggestions = `
+                    <h3>投资建议：</h3>
+                    <ul>
+                        <li>货币基金（如余额宝）：20%</li>
+                        <li>银行理财（保本型）：60%</li>
+                        <li>债券基金：20%</li>
+                        <li>预期收益：2%-4%年化</li>
+                    </ul>
+                `;
+            } else if (avgScore <= 2.5) {
+                riskType = '稳健型';
+                content = '你的风险承受能力中等，能接受小幅亏损。建议选择中低风险、中等收益的投资产品，追求稳健增长。';
+                suggestions = `
+                    <h3>投资建议：</h3>
+                    <ul>
+                        <li>货币基金：10%</li>
+                        <li>债券基金：40%</li>
+                        <li>指数基金：50%</li>
+                        <li>预期收益：5%-7%年化</li>
+                    </ul>
+                `;
+            } else if (avgScore <= 3.5) {
+                riskType = '平衡型';
+                content = '你的风险承受能力中等偏高，能接受中等亏损。建议选择平衡风险和收益的投资产品，追求较高收益。';
+                suggestions = `
+                    <h3>投资建议：</h3>
+                    <ul>
+                        <li>货币基金：10%</li>
+                        <li>债券基金：30%</li>
+                        <li>指数基金：60%</li>
+                        <li>预期收益：7%-9%年化</li>
+                    </ul>
+                `;
+            } else {
+                riskType = '进取型';
+                content = '你的风险承受能力较高，能接受较大亏损。建议选择中高风险、高收益的投资产品，追求长期增值。';
+                suggestions = `
+                    <h3>投资建议：</h3>
+                    <ul>
+                        <li>货币基金：5%</li>
+                        <li>债券基金：20%</li>
+                        <li>指数基金：75%</li>
+                        <li>预期收益：8%-10%年化（波动较大）</li>
+                    </ul>
+                `;
+            }
+            
+            document.getElementById('resultType').textContent = riskType;
+            document.getElementById('resultContent').textContent = content;
+            document.getElementById('resultSuggestions').innerHTML = suggestions;
+            document.getElementById('result').classList.add('show');
+            
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

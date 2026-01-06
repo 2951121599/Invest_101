@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>复利计算器</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 20px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        h1 { color: #333; text-align: center; margin-bottom: 10px; font-size: 32px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 14px; }
+        .calculator { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
+        .input-section, .result-section { background: #f8f9fa; padding: 25px; border-radius: 10px; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; color: #333; font-weight: 500; }
+        .input-group input { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; transition: border-color 0.3s; }
+        .input-group input:focus { outline: none; border-color: #667eea; }
+        .btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; font-size: 18px; font-weight: 600; cursor: pointer; transition: transform 0.2s; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
+        .result-card { background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #667eea; }
+        .result-label { color: #666; font-size: 14px; margin-bottom: 5px; }
+        .result-value { color: #333; font-size: 24px; font-weight: 600; }
+        .result-value.highlight { color: #667eea; font-size: 32px; }
+        .chart-container { margin-top: 30px; height: 400px; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .comparison-table th, .comparison-table td { padding: 12px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+        .comparison-table th { background: #f8f9fa; font-weight: 600; color: #333; }
+        @media (max-width: 768px) { .calculator { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>复利计算器</h1>
+        <p class="subtitle">计算复利效应，了解时间对投资的影响</p>
+        <div class="calculator">
+            <div class="input-section">
+                <h2 style="margin-bottom: 20px; color: #333;">输入参数</h2>
+                <div class="input-group"><label>初始本金（元）</label><input type="number" id="principal" value="0" min="0"></div>
+                <div class="input-group"><label>每月定投金额（元）</label><input type="number" id="monthly" value="1000" min="0"></div>
+                <div class="input-group"><label>年化收益率（%）</label><input type="number" id="rate" value="8" min="0" max="100" step="0.1"></div>
+                <div class="input-group"><label>投资年限（年）</label><input type="number" id="years" value="30" min="1" max="100"></div>
+                <button class="btn" onclick="calculate()">计算</button>
+            </div>
+            <div class="result-section">
+                <h2 style="margin-bottom: 20px; color: #333;">计算结果</h2>
+                <div class="result-card"><div class="result-label">总投入金额</div><div class="result-value" id="totalInvested">--</div></div>
+                <div class="result-card"><div class="result-label">最终金额</div><div class="result-value highlight" id="finalAmount">--</div></div>
+                <div class="result-card"><div class="result-label">投资收益</div><div class="result-value" id="totalReturn">--</div></div>
+                <div class="result-card"><div class="result-label">收益率</div><div class="result-value" id="returnRate">--</div></div>
+            </div>
+        </div>
+        <div class="chart-container"><canvas id="chart"></canvas></div>
+        <table class="comparison-table" id="comparisonTable" style="display: none;">
+            <thead><tr><th>年份</th><th>累计投入</th><th>累计收益</th><th>总资产</th></tr></thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+    <script>
+        let chart = null;
+        function calculate() {
+            const principal = parseFloat(document.getElementById('principal').value) || 0;
+            const monthly = parseFloat(document.getElementById('monthly').value) || 0;
+            const rate = parseFloat(document.getElementById('rate').value) || 0;
+            const years = parseInt(document.getElementById('years').value) || 0;
+            if (years <= 0) { alert('请输入有效的投资年限'); return; }
+            const monthlyRate = rate / 100 / 12;
+            const months = years * 12;
+            let finalAmount = principal * Math.pow(1 + monthlyRate, months);
+            if (monthly > 0) { finalAmount += monthly * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate); }
+            const totalInvested = principal + monthly * months;
+            const totalReturn = finalAmount - totalInvested;
+            const returnRate = (totalReturn / totalInvested * 100).toFixed(2);
+            document.getElementById('totalInvested').textContent = formatCurrency(totalInvested);
+            document.getElementById('finalAmount').textContent = formatCurrency(finalAmount);
+            document.getElementById('totalReturn').textContent = formatCurrency(totalReturn);
+            document.getElementById('returnRate').textContent = returnRate + '%';
+            generateChart(principal, monthly, rate, years);
+            generateTable(principal, monthly, rate, years);
+        }
+        function formatCurrency(amount) { return '¥' + amount.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+        function generateChart(principal, monthly, rate, years) {
+            const monthlyRate = rate / 100 / 12;
+            const months = years * 12;
+            const labels = []; const investedData = []; const valueData = [];
+            for (let i = 0; i <= years; i++) {
+                const month = i * 12;
+                if (month > months) break;
+                labels.push(`第${i}年`);
+                const totalInvested = principal + monthly * month;
+                investedData.push(totalInvested);
+                let currentValue = principal * Math.pow(1 + monthlyRate, month);
+                if (monthly > 0 && month > 0) { currentValue += monthly * ((Math.pow(1 + monthlyRate, month) - 1) / monthlyRate); }
+                valueData.push(currentValue);
+            }
+            const ctx = document.getElementById('chart').getContext('2d');
+            if (chart) chart.destroy();
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '累计投入',
+                        data: investedData,
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: '资产价值',
+                        data: valueData,
+                        borderColor: '#28a745',
+                        backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true, position: 'top' },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: { label: function(context) { return context.dataset.label + ': ' + formatCurrency(context.parsed.y); } }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { callback: function(value) { return formatCurrency(value); } }
+                        }
+                    }
+                }
+            });
+        }
+        function generateTable(principal, monthly, rate, years) {
+            const monthlyRate = rate / 100 / 12;
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            for (let year = 0; year <= years; year += 5) {
+                if (year === 0) year = 1;
+                const month = year * 12;
+                const totalInvested = principal + monthly * month;
+                let finalValue = principal * Math.pow(1 + monthlyRate, month);
+                if (monthly > 0 && month > 0) { finalValue += monthly * ((Math.pow(1 + monthlyRate, month) - 1) / monthlyRate); }
+                const returnAmount = finalValue - totalInvested;
+                const row = tbody.insertRow();
+                row.insertCell(0).textContent = `第${year}年`;
+                row.insertCell(1).textContent = formatCurrency(totalInvested);
+                row.insertCell(2).textContent = formatCurrency(returnAmount);
+                row.insertCell(3).textContent = formatCurrency(finalValue);
+            }
+            document.getElementById('comparisonTable').style.display = 'table';
+        }
+        window.onload = function() { calculate(); };
+    </script>
+</body>
+</html>

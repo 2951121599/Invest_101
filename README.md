@@ -13,33 +13,33 @@
 
 ## 📖 内容目录
 
-### 第一阶段：观念筑基
+### 第一阶段：观念筑基 (`docs/01-foundations/`)
 
-1. 投资、理财与赌博的本质区别
-2. 风险收益平衡：你真的了解自己能承受多少风险吗？
-3. 时间的魔力：复利计算的惊人效果
-4. 通胀：看不见的财富杀手
+1. [投资、理财与赌博的本质区别](docs/01-foundations/01-investing-vs-gambling.md)
+2. [风险收益平衡：你真的了解自己能承受多少风险吗？](docs/01-foundations/02-risk-return-tradeoff.md)
+3. [时间的魔力：复利计算的惊人效果](docs/01-foundations/03-power-of-time.md)
+4. [通胀：看不见的财富杀手](docs/01-foundations/04-inflation-threat.md)
 
-### 第二阶段：工具认知
+### 第二阶段：工具认知 (`docs/02-tools/`)
 
-1. 从存款到股票：各类投资工具全解析
-2. 基金入门：为什么说是指数基金是新手最佳选择？
-3. 资产配置：不要把鸡蛋放在一个篮子里
-4. 理财陷阱识别：那些年我们交过的"智商税"
+1. [从存款到股票：各类投资工具全解析](docs/02-tools/01-investment-vehicles.md)
+2. [基金入门：为什么说是指数基金是新手最佳选择？](docs/02-tools/02-mutual-funds-etfs.md)
+3. [资产配置：不要把鸡蛋放在一个篮子里](docs/02-tools/03-asset-allocation.md)
+4. [理财陷阱识别：那些年我们交过的"智商税"](docs/02-tools/04-common-traps.md)
 
-### 第三阶段：实战操作
+### 第三阶段：实战操作 (`docs/03-practice/`)
 
-1. 个人财务健康检查清单
-2. 建立你的第一个投资组合
-3. 基金定投：懒人投资法的科学原理
-4. 投资记录与复盘：建立自己的投资系统
+1. [个人财务健康检查清单](docs/03-practice/01-financial-checkup.md)
+2. [建立你的第一个投资组合](docs/03-practice/02-first-portfolio.md)
+3. [基金定投：懒人投资法的科学原理](docs/03-practice/03-dca-strategy.md)
+4. [投资记录与复盘：建立自己的投资系统](docs/03-practice/04-tracking-review.md)
 
-### 第四阶段：进阶思维
+### 第四阶段：进阶思维 (`docs/04-advanced/`)
 
-1. 经济周期与市场情绪
-2. 价值投资 vs 趋势投资
-3. 行为金融学：我们为何总是做出不理性的投资决策？
-4. 终身学习：优秀投资者的成长路径
+1. [经济周期与市场情绪](docs/04-advanced/01-market-cycles.md)
+2. [价值投资 vs 趋势投资](docs/04-advanced/02-investment-philosophies.md)
+3. [行为金融学：我们为何总是做出不理性的投资决策？](docs/04-advanced/03-behavioral-finance.md)
+4. [终身学习：优秀投资者的成长路径](docs/04-advanced/04-lifelong-learning.md)
 
 ## 🚀 快速开始
 
@@ -53,16 +53,31 @@
 ### 如果你有投资经验：
 
 1. 直接查看你感兴趣的章节
-2. 检查 `advanced/` 目录下的进阶内容
-3. 参与内容完善，分享你的实战经验
-4. 帮助解答 Issues 中的问题
+2. 查看 `docs/04-advanced/` 目录下的进阶内容
+3. 参考 `examples/` 目录下的案例研究
+4. 参与内容完善，分享你的实战经验
+5. 帮助解答 Issues 中的问题
 
-## 🛠️ 实用工具
+## 🛠️ 实用工具 (`tools/`)
 
-- **风险承受能力测试工具** - 在线测试你的风险偏好
-- **复利计算器** - 可视化时间对投资的影响
-- **资产配置模板** - Excel/Google Sheets模板
-- **投资检查清单** - 每次投资前的自查清单
+- **[风险承受能力测试工具](tools/risk-assessment.html)** - 在线测试你的风险偏好
+- **[复利计算器](tools/compound-calculator.html)** - 可视化时间对投资的影响
+- **[资产配置模板](tools/allocation-template.txt)** - 资产配置模板说明
+- **[投资检查清单](tools/investment-checklist.txt)** - 每次投资前的自查清单
+
+## 📚 学习资源 (`resources/`)
+
+- **[推荐书单](resources/book-recommendations.md)** - 投资理财经典书籍推荐
+- **[术语表](resources/glossary.md)** - 投资理财常用术语解释
+- **[常见问题](resources/faq.md)** - 投资理财常见问题解答
+- **[延伸阅读](resources/further-reading.md)** - 更多学习资源和链接
+
+## 💡 案例研究 (`examples/`)
+
+- **[案例1：刚毕业年轻人的财务规划](examples/case-study-1.md)**
+- **[案例2：中年家庭的资产配置](examples/case-study-2.md)**
+- **[案例3：退休规划实例](examples/case-study-3.md)**
+- **[投资组合示例](examples/portfolio-examples/)** - 不同风险偏好的投资组合示例
 
 ## 🤝 参与贡献
 
@@ -95,6 +110,6 @@
 
 **开始你的投资学习之旅吧！记住：最好的投资时间是十年前，其次是现在。**
 
-[👉 点击这里开始学习第一章](https://docs/01-投资理财的核心观念.md)
+[👉 点击这里开始学习第一章](docs/01-foundations/01-investing-vs-gambling.md)
 
 *如果有帮助，请给我们一个⭐，让更多人看到这个项目！*
