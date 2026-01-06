@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invest_101：投资理财从零到一</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 42px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .intro {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .intro p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .feature {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .feature h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .doc-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .doc-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .doc-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .doc-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .doc-card li {
+            margin: 8px 0;
+        }
+        
+        .doc-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .doc-card a:hover {
+            text-decoration: underline;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .tool-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+            transition: all 0.2s;
+        }
+        
+        .tool-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+        
+        .tool-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: transform 0.2s;
+            margin: 10px 5px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #f0f0f0;
+            color: #666;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .warning strong {
+            color: #856404;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            .doc-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Invest_101</h1>
+            <p class="subtitle">投资理财从零到一</p>
+        </header>
+        
+        <div class="intro">
+            <p><strong>Invest-101</strong> 是一个为投资理财新手打造的完整开源学习体系。本系列内容旨在用最通俗易懂的方式，系统性地介绍投资理财的核心概念、工具和策略，帮助零基础的朋友建立正确的财富观念，避开常见陷阱，迈出稳健投资的第一步。</p>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <h3>📚 零基础友好</h3>
+                <p>从"钱是什么"开始，逐步深入</p>
+            </div>
+            <div class="feature">
+                <h3>🎯 实战导向</h3>
+                <p>不仅有理论，更有具体操作指南</p>
+            </div>
+            <div class="feature">
+                <h3>🔄 持续更新</h3>
+                <p>根据市场变化和用户反馈定期更新</p>
+            </div>
+            <div class="feature">
+                <h3>🤝 开源协作</h3>
+                <p>欢迎所有人参与完善</p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📖 学习路径</h2>
+            
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h3>第一阶段：观念筑基</h3>
+                    <ul>
+                        <li><a href="docs/01-foundations/01-investing-vs-gambling">投资、理财与赌博的本质区别</a></li>
+                        <li><a href="docs/01-foundations/02-risk-return-tradeoff">风险收益平衡</a></li>
+                        <li><a href="docs/01-foundations/03-power-of-time">时间的魔力：复利效应</a></li>
+                        <li><a href="docs/01-foundations/04-inflation-threat">通胀：看不见的财富杀手</a></li>
+                    </ul>
+                </div>
+                
+                <div class="doc-card">
+                    <h3>第二阶段：工具认知</h3>
+                    <ul>
+                        <li><a href="docs/02-tools/01-investment-vehicles">从存款到股票：各类投资工具全解析</a></li>
+                        <li><a href="docs/02-tools/02-mutual-funds-etfs">基金入门：指数基金是新手最佳选择</a></li>
+                        <li><a href="docs/02-tools/03-asset-allocation">资产配置：不要把鸡蛋放在一个篮子里</a></li>
+                        <li><a href="docs/02-tools/04-common-traps">理财陷阱识别</a></li>
+                    </ul>
+                </div>
+                
+                <div class="doc-card">
+                    <h3>第三阶段：实战操作</h3>
+                    <ul>
+                        <li><a href="docs/03-practice/01-financial-checkup">个人财务健康检查清单</a></li>
+                        <li><a href="docs/03-practice/02-first-portfolio">建立你的第一个投资组合</a></li>
+                        <li><a href="docs/03-practice/03-dca-strategy">基金定投：懒人投资法</a></li>
+                        <li><a href="docs/03-practice/04-tracking-review">投资记录与复盘</a></li>
+                    </ul>
+                </div>
+                
+                <div class="doc-card">
+                    <h3>第四阶段：进阶思维</h3>
+                    <ul>
+                        <li><a href="docs/04-advanced/01-market-cycles">经济周期与市场情绪</a></li>
+                        <li><a href="docs/04-advanced/02-investment-philosophies">价值投资 vs 趋势投资</a></li>
+                        <li><a href="docs/04-advanced/03-behavioral-finance">行为金融学</a></li>
+                        <li><a href="docs/04-advanced/04-lifelong-learning">终身学习：优秀投资者的成长路径</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🛠️ 实用工具</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <a href="tools/risk-assessment.html">风险承受能力测试</a>
+                    <p style="margin-top: 10px; color: #666; font-size: 14px;">在线测试你的风险偏好</p>
+                </div>
+                <div class="tool-card">
+                    <a href="tools/compound-calculator.html">复利计算器</a>
+                    <p style="margin-top: 10px; color: #666; font-size: 14px;">可视化时间对投资的影响</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📚 学习资源</h2>
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h3><a href="resources/book-recommendations">推荐书单</a></h3>
+                    <p>投资理财经典书籍推荐</p>
+                </div>
+                <div class="doc-card">
+                    <h3><a href="resources/glossary">术语表</a></h3>
+                    <p>投资理财常用术语解释</p>
+                </div>
+                <div class="doc-card">
+                    <h3><a href="resources/faq">常见问题</a></h3>
+                    <p>投资理财常见问题解答</p>
+                </div>
+                <div class="doc-card">
+                    <h3><a href="resources/further-reading">延伸阅读</a></h3>
+                    <p>更多学习资源和链接</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>💡 案例研究</h2>
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h3><a href="examples/case-study-1">案例1：刚毕业年轻人的财务规划</a></h3>
+                </div>
+                <div class="doc-card">
+                    <h3><a href="examples/case-study-2">案例2：中年家庭的资产配置</a></h3>
+                </div>
+                <div class="doc-card">
+                    <h3><a href="examples/case-study-3">案例3：退休规划实例</a></h3>
+                </div>
+            </div>
+        </div>
+        
+        <div class="warning">
+            <strong>⚠️ 重要声明：</strong>本仓库内容仅为教育目的，不构成任何投资建议。市场有风险，投资需谨慎。在做出任何投资决策前，请咨询合格的金融顾问，并根据自身情况做出独立判断。
+        </div>
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="https://github.com/2951121599/Invest_101" class="btn" target="_blank">查看 GitHub 仓库</a>
+            <a href="README" class="btn">查看完整文档</a>
+        </div>
+        
+        <footer>
+            <p>开始你的投资学习之旅吧！记住：<strong>最好的投资时间是十年前，其次是现在。</strong></p>
+            <p style="margin-top: 10px;">如果有帮助，请给我们一个 ⭐，让更多人看到这个项目！</p>
+        </footer>
+    </div>
+</body>
+</html>
+
